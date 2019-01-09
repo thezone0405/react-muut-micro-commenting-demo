@@ -1,13 +1,14 @@
 import {combineReducers} from 'redux'
 
-const init = (initialState,action) => {
+const initialState = (state,action) => {
     return {
-        welcomeText: "HEY WORKING"
+        ...state,
+        message: "HEY WORKING"
     }
 }
 
 const reducers = combineReducers({
-    initialState: init
+    welcome: initialState
 })
 
 export default reducers
