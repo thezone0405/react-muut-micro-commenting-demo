@@ -1,5 +1,5 @@
 {
-  "name": "noissue-simple-form",
+  "name": "boilerplate-ssr-react-redux",
   "version": "1.0.0",
   "description": "Boiler plate for react SSR and REDUX with webpack babel 7 and jest",
   "main": "index.js",
