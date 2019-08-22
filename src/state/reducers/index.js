@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
+import authentication from 'state/reducers/auth'
 
-const initialState = (state,action) => {
+const mainState = (state,action) => {
     return {
         ...state,
         message: "HEY WORKING",
@@ -13,12 +14,13 @@ const initialState = (state,action) => {
             "The new Muut finally brings you the best of both worlds. Get up and running fast, and tailor it to your needs with our powerful API while spending significantly less money building out basic features because we've done all the heavy lifting. Metadata along with sorting/filtering gives you the freedom to manage your content like never before.",
             "You can also manage your projects in our new admin console, and keep an eye out for our upcoming in-console moderation features. We'll be incorporating machine learning, sentiment analysis, content management, and all right inside the console (as well as our new API).",
             "The future is bright, we're giving you to tools to build it. We're looking forward to seeing what you create with Muut!"
-        ] 
+        ]
     }
 }
 
 const reducers = combineReducers({
-    init: initialState,
+    init: mainState,
+    auth: authentication
 })
 
 export default reducers

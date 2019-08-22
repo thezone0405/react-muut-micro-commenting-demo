@@ -3,10 +3,12 @@ body {
   background: #020c1f;
   color: #ffffff;
   div#root{
-    background-color: rgba($color: #333333, $alpha: 0.7);
+    background-color: rgba($color: #e6e6e6, $alpha: 0.7);
     max-width: 800px;
     margin: 30px auto;
     padding: 25px;
+    border-radius: 3px;
+    margin-top: 3%;
   }
   p{
     font-size: 15px;

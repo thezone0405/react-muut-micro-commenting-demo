@@ -9,6 +9,6 @@ import { renderRoutes } from 'react-router-config'
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router store={store}>{renderRoutes(routes)}</Router>
+        <Router>{renderRoutes(routes)}</Router>
     </Provider>,
 document.getElementById("root"))
