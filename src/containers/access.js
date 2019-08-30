@@ -28,15 +28,15 @@ const Wrap = styled.div`
     }
 `
 
-const ErrowWrap = styled.div`
+const ErrorWrap = styled.div`
     color: #dc3545;
     text-align: center;
 `
 
 const LoginError = (props) => (
-    <ErrowWrap>
+    <ErrorWrap>
         <span>{props.loginError}</span>
-    </ErrowWrap>    
+    </ErrorWrap>    
 ) 
 
 const InterchangingButton = (props) => {

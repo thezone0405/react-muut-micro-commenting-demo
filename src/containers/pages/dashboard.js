@@ -1,24 +1,32 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {ContentParagraphs} from 'components/content-helper'
-import {MicroComments} from 'components/micro-comment'
+import MicroComment from 'containers/micro-comment'
 import Popover from 'react-text-selection-popover'
 import Access from 'containers/access'
 import {connect} from 'react-redux'
-import {textSelect} from 'state/actions/dashboard'
+//import {textSelect} from 'state/actions/dashboard'
+import {textSelect} from 'state/actions/actionMicroComment'
 
 /*
 <Popover selectionRef={this.contentParagraphs}>
                     <MicroComments comments={this.props.comments} />
-                </Popover>
+                </Popover>onTextUnselect={() => this.props.textUnselect()}
 */ 
 class Dashboard extends Component{
     render(){
+        console.log(this.props.popOverVisible)
         return(
             <div>
                 <Access />
                 <h2>{this.props.initial.title}</h2>
-                <ContentParagraphs ref={this.contentParagraphs} action={this.props.textSelect} content={this.props.initial.contents}/>    
+                <ContentParagraphs ref={this.contentParagraphs} action={this.props.textSelect} unselectAction={this.props.textUnselect} content={this.props.initial.contents}/>
+                <Popover
+                    selectionRef={this.contentParagraphs}
+                    isOpen={ this.props.popOverVisible }
+                    >
+                    <MicroComment />
+                </Popover>
             </div>
         )
     }
@@ -26,12 +34,16 @@ class Dashboard extends Component{
 
 const mapStateToProps = (state) =>{
     return {
-        initial: state.init
+        initial: state.init,
+        popOverVisible: state.thread.popOverVisible
     }
 }
 
 const matchDispatchToProps = (dispatch) =>{
-    return bindActionCreators({textSelect}, dispatch)
+    return {
+        textSelect: (text) => dispatch(textSelect(text)),
+        textUnselect: () => dispatch({type: "TEXT_UNSELECTED"})
+    }
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, matchDispatchToProps)(Dashboard) 

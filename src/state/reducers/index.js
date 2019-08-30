@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux'
 import authentication from 'state/reducers/auth'
+import microComments from 'state/reducers/micro-comment'
 
 const mainState = (state,action) => {
     return {
@@ -7,6 +8,7 @@ const mainState = (state,action) => {
         message: "HEY WORKING",
         title: "Muut - Micro Commenting Demo",
         contents: [
+            "test-thread",
             "When Muut first launched in 2013 our goal was to revolutionize online discussion with a new kind of platform. Over the years we've built a next-gen platform powered by an API that offered speed and flexibility. Each advancement drew more and more interest from our audience on how they could better utilize our platform to accomplish more and more ambitious projects.",
             "And so, we've spent the last couple years making Muut even better behind the scenes with an advanced API. Muut IO was the start of that process, giving developers the speed and power of Muut with the flexibility of an API. But it was just the beginning. Thanks to the feedback we got, we were able to find the sweet spot.",
             "The new Muut is the culmination of a long journey we started all those years ago. We've rebuilt our API from the ground up to bring you our new developer platform.",
@@ -20,7 +22,8 @@ const mainState = (state,action) => {
 
 const reducers = combineReducers({
     init: mainState,
-    auth: authentication
+    auth: authentication,
+    thread: microComments
 })
 
 export default reducers
