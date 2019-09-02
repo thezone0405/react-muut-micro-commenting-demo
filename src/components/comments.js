@@ -38,7 +38,6 @@ export const Comment = props => {
             <div className="comment">
                 <p>{props.body}</p>
             </div>
-            <a href="#">Like</a>
         </div>
     )
 }

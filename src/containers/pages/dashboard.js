@@ -12,15 +12,14 @@ import {textSelect} from 'state/actions/actionMicroComment'
 <Popover selectionRef={this.contentParagraphs}>
                     <MicroComments comments={this.props.comments} />
                 </Popover>onTextUnselect={() => this.props.textUnselect()}
-*/ 
+*/  
 class Dashboard extends Component{
     render(){
-        console.log(this.props.popOverVisible)
         return(
             <div>
                 <Access />
                 <h2>{this.props.initial.title}</h2>
-                <ContentParagraphs ref={this.contentParagraphs} action={this.props.textSelect} unselectAction={this.props.textUnselect} content={this.props.initial.contents}/>
+                <ContentParagraphs ref={this.contentParagraphs} action={this.props.textSelect} content={this.props.initial.contents}/>
                 <Popover
                     selectionRef={this.contentParagraphs}
                     isOpen={ this.props.popOverVisible }

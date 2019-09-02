@@ -8,10 +8,10 @@ export const toggleModal = () => {
     }
 }
 
-export const setUser = (username) => {
+export const setUser = (user) => {
     return {
         type: 'USER_LOGIN',
-        payload: username
+        payload: user
     }
 }
 
@@ -19,8 +19,9 @@ export const logout = () => {
     return async (dispatch, getState) => {
         localStorage.removeItem('token')
         localStorage.removeItem('username')
+        localStorage.removeItem('avatar')
         setAuthorization(false)
-        dispatch(setUser(''))
+        dispatch(setUser({username:'', avatar: ''}))
     }
 }
  
@@ -35,8 +36,9 @@ export const login = (creds) => {
             })
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('username', creds.username)
+            localStorage.setItem('avatar', response.data.avatar)
             setAuthorization(response.data.token)
-            dispatch(setUser(creds.username))
+            dispatch(setUser({username: creds.username, avatar: response.data.avatar}))
             dispatch(toggleModal())
         }catch(e){
             dispatch({type: 'LOGIN_ERROR', payload: "Incorrect username / password "})

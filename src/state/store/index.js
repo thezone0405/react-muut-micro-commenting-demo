@@ -6,9 +6,9 @@ import {setUser} from 'state/actions/actionAuthentication'
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
-const {username, token} = localStorage
-if(username){
-    store.dispatch(setUser(username))
+const {username, token, avatar} = localStorage
+if(username && avatar){
+    store.dispatch(setUser({username, avatar}))
 }
 setAuthorization(token)
 

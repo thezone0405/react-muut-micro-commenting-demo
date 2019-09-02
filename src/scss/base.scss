@@ -29,6 +29,10 @@ body {
       max-width: 50px;
       border-radius: 50%;
     }
+    .comments-scrollable{
+      max-height: 350px;
+      overflow-y: scroll;
+    }
   }
   .bubble-wrap{
     border-top: dotted 1px;

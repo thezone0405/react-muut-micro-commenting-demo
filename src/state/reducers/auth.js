@@ -9,7 +9,8 @@ export default (state = initState, action) => {
         case 'USER_LOGIN':
             return {
                 ...state,
-                username: action.payload,
+                username: action.payload.username,
+                avatar: action.payload.avatar,
                 loginError: ''
             }
             break

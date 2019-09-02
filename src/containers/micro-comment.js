@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { Button } from 'antd';
 import styled from 'styled-components'
 import {Comments, Comment, Spinner} from 'components/comments'
+import {threadReply, threadCreate} from 'state/actions/actionMicroComment'
 
 const Wrap = styled.div`
     label{
@@ -19,13 +20,13 @@ const Wrap = styled.div`
 const CommentForm = props => {
     return (
         <div>
-            <form>
+            <form method="post" name="test">
                 <Wrap>
                     <label>Comment</label>
-                    <textarea row="10" name="comment" onKeyUp={ props.handleInputChange}></textarea>
+                    <textarea row="10" name="comment" onChange={ props.handleInputChange} value={props.comment}></textarea>
                 </Wrap>
                 <Wrap>
-                    <Button key="submit" type="primary" form="login-form" htmlType="submit">Submit</Button>
+                    <Button key="submit" type="primary" htmlType="submit" className="comment-submit" onClick={props.handleSubmitClick}>Submit</Button>
                 </Wrap>
             </form>
         </div>
@@ -37,8 +38,27 @@ class MicroComment extends Component{
         comment: '',
         thread: ''
     }
+    handleSubmit = () => {
+        if(this.state.thread.trim() && this.state.comment.trim()){
+            const payload = {
+                ...this.state,
+                username: this.props.user.username,
+                avatar: this.props.user.avatar,
+            }
+            if(this.props.microComment.thread.size){
+                this.props.threadReply(payload)
+                this.setState({
+                    comment: '',
+                })
+            }else{
+                this.props.createThread(payload)
+                this.setState({
+                    comment: '',
+                })
+            }
+        }
+    }
     setComment = (e) => {
-        console.log(this.state)
         let value = e.target.value
         this.setState(prevState=>(Object.assign(prevState,{comment:value})))
     }
@@ -54,29 +74,30 @@ class MicroComment extends Component{
         document.removeEventListener('mousedown', this.handleClick, false)
     }
     handleClick = e => {
-        if(this.node.contains(e.target)){
-            return
+        if(!this.node.contains(e.target)){
+            this.props.textUnselect()
+        }else if(e.target.className == 'ant-btn comment-submit ant-btn-primary'){
+            this.handleSubmit()
         }
-        this.props.textUnselect()
     }
     render(){
-        //console.log(this.props.microComment)
         if(this.props.microComment.thread.size){
-            if(this.props.microComment.thread.threads[0].reply_count){
-                return(
-                    <div className="comments-wrap" ref={ node => this.node = node }>
-                        <p><i>"{this.props.microComment.selection}"</i></p>
+            return(
+                <div className="comments-wrap" ref={ node => this.node = node }>
+                    <p><i>"{this.props.microComment.selection}"</i></p>
+                    <div className="comments-scrollable">
                         <Comment {...this.props.microComment.thread.threads[0].post} />
                         <Comments comments={this.props.microComment.thread.threads[0].replies} />
-                        <CommentForm handleInputChange={this.setComment}/>
                     </div>
-                )
-            }
+                    <CommentForm comment={this.state.comment} handleInputChange={this.setComment}/>
+                </div>
+            )
         }
         return (
             <div className="comments-wrap" ref={ node => this.node = node }>
+                <p><i>"{this.props.microComment.selection}"</i></p>
                 <Spinner visible={this.props.microComment.loadingThread}/>
-                <CommentForm handleInputChange={this.setComment} />
+                <CommentForm comment={this.state.comment} handleInputChange={this.setComment} />
             </div>
         )
     }
@@ -84,13 +105,16 @@ class MicroComment extends Component{
 
 const mapStateToProps = (state) =>{
     return {
-        microComment: state.thread
+        microComment: state.thread,
+        user: state.auth
     }
 }
 
 const matchDispatchToProps = (dispatch) =>{
     return {
-        textUnselect: () => dispatch({type: "TEXT_UNSELECTED"})
+        textUnselect: () => dispatch({type: "TEXT_UNSELECTED"}),
+        createThread: (data) => dispatch(threadCreate(data)),
+        threadReply: (data) => dispatch(threadReply(data))
     }
 }
 
