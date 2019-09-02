@@ -1,23 +1,24 @@
 {
-  "name": "boilerplate-ssr-react-redux",
+  "name": "react-muut-micro-commenting-demo",
   "version": "1.0.0",
-  "description": "Boiler plate for react SSR and REDUX with webpack babel 7 and jest",
+  "description": "Micro Comment demo for muut",
   "main": "index.js",
   "scripts": {
-    "webpack": "babel-node ./node_modules/webpack/bin/webpack",
+    "build": "babel-node ./node_modules/webpack/bin/webpack",
     "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open",
-    "unit-test": "jest test/unit-test --watch"
+    "unit-test": "jest test/unit-test --watch",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thezone0405/noissue-simple-form.git"
+    "url": "git+https://github.com/thezone0405/react-muut-micro-commenting-demo.git"
   },
   "author": "Edizon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thezone0405/noissue-simple-form/issues"
+    "url": "https://github.com/thezone0405/react-muut-micro-commenting-demo/issues"
   },
-  "homepage": "https://github.com/thezone0405/noissue-simple-form#readme",
+  "homepage": "https://github.com/thezone0405/react-muut-micro-commenting-demo#readme",
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/node": "^7.2.0",
